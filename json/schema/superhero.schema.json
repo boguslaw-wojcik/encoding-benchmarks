@@ -1,0 +1,51 @@
+{
+  "$id": "superhero.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Superhero",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "affiliation_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "life": {
+      "type": "number"
+    },
+    "energy": {
+      "type": "number"
+    },
+    "powers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/superpower"
+      }
+    }
+  },
+  "definitions": {
+    "superpower": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "damage": {
+          "type": "number"
+        },
+        "energy": {
+          "type": "number"
+        },
+        "passive": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
