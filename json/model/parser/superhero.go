@@ -1,26 +1,10 @@
-package parser
+package model
 
 import (
 	"github.com/buger/jsonparser"
 )
 
-type Superhero struct {
-	Id            int
-	AffiliationId int
-	Name          string
-	Life          float64
-	Energy        float64
-	Powers        []*Superpower
-}
-
-type Superpower struct {
-	Id      int
-	Name    string
-	Damage  float64
-	Energy  float64
-	Passive bool
-}
-
+// superheroPaths is a list of paths to be parsed by buger/jsonparser.
 var superheroPaths = [][]string{
 	{"id"},
 	{"affiliation_id"},
@@ -30,14 +14,17 @@ var superheroPaths = [][]string{
 	{"powers"},
 }
 
-var superpowerPaths = [][]string{
-	{"id"},
-	{"name"},
-	{"damage"},
-	{"energy"},
-	{"passive"},
+// Superhero is a model to which a custom unmarshal method utilizing buger/jsonparser API is attached.
+type Superhero struct {
+	ID            int
+	AffiliationID int
+	Name          string
+	Life          float64
+	Energy        float64
+	Powers        []*Superpower
 }
 
+// UnmarshalJSON is a method implementing unmarshaler interface and utilizing buger/jsonparser low level API.
 func (s *Superhero) UnmarshalJSON(b []byte) error {
 	var lastErr error
 
@@ -54,11 +41,11 @@ func (s *Superhero) UnmarshalJSON(b []byte) error {
 		switch i {
 		case 0: // id
 			if id, err := jsonparser.ParseInt(v); err == nil {
-				s.Id = int(id)
+				s.ID = int(id)
 			}
 		case 1: // affiliation_id
 			if affiliationID, err := jsonparser.ParseInt(v); err == nil {
-				s.AffiliationId = int(affiliationID)
+				s.AffiliationID = int(affiliationID)
 			}
 		case 2: // name
 			s.Name, err = jsonparser.ParseString(v)
@@ -78,6 +65,25 @@ func (s *Superhero) UnmarshalJSON(b []byte) error {
 	return lastErr
 }
 
+// superpowerPaths is a list of paths to be parsed by buger/jsonparser.
+var superpowerPaths = [][]string{
+	{"id"},
+	{"name"},
+	{"damage"},
+	{"energy"},
+	{"passive"},
+}
+
+// Superpower is a model to which a custom unmarshal method utilizing buger/jsonparser API is attached.
+type Superpower struct {
+	ID      int
+	Name    string
+	Damage  float64
+	Energy  float64
+	Passive bool
+}
+
+// UnmarshalJSON is a method implementing unmarshaler interface and utilizing buger/jsonparser low level API.
 func (s *Superpower) UnmarshalJSON(b []byte) error {
 	var lastErr error
 
@@ -94,7 +100,7 @@ func (s *Superpower) UnmarshalJSON(b []byte) error {
 		switch i {
 		case 0: // id
 			if id, err := jsonparser.ParseInt(v); err == nil {
-				s.Id = int(id)
+				s.ID = int(id)
 			}
 		case 1: // name
 			s.Name, err = jsonparser.ParseString(v)

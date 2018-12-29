@@ -2,21 +2,21 @@
 
 package model
 
-// Superhero 
+// Superhero
 type Superhero struct {
-  AffiliationId int `json:"affiliation_id,omitempty"`
-  Energy float64 `json:"energy,omitempty"`
-  Id int `json:"id,omitempty"`
-  Life float64 `json:"life,omitempty"`
-  Name string `json:"name,omitempty"`
-  Powers []*Superpower `json:"powers,omitempty"`
+	AffiliationId int           `json:"affiliation_id,omitempty"`
+	Energy        float64       `json:"energy,omitempty"`
+	Id            int           `json:"id,omitempty"`
+	Life          float64       `json:"life,omitempty"`
+	Name          string        `json:"name,omitempty"`
+	Powers        []*Superpower `json:"powers,omitempty"`
 }
 
-// Superpower 
+// Superpower
 type Superpower struct {
-  Damage float64 `json:"damage,omitempty"`
-  Energy float64 `json:"energy,omitempty"`
-  Id int `json:"id,omitempty"`
-  Name string `json:"name,omitempty"`
-  Passive bool `json:"passive,omitempty"`
+	Damage  float64 `json:"damage,omitempty"`
+	Energy  float64 `json:"energy,omitempty"`
+	Id      int     `json:"id,omitempty"`
+	Name    string  `json:"name,omitempty"`
+	Passive bool    `json:"passive,omitempty"`
 }

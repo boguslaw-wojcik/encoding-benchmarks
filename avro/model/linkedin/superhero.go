@@ -1,5 +1,6 @@
 package model
 
+// Superhero is a model with custom hydration and extraction methods required to work with linkedin/goavro maps.
 type Superhero struct {
 	ID            int32
 	AffiliationID int32
@@ -9,6 +10,7 @@ type Superhero struct {
 	Powers        []*Superpower
 }
 
+// ToMap extracts model data to a map required to perform encoding.
 func (s *Superhero) ToMap() map[string]interface{} {
 	data := map[string]interface{}{
 		"id":             s.ID,
@@ -26,6 +28,7 @@ func (s *Superhero) ToMap() map[string]interface{} {
 	return data
 }
 
+// FromMap hydrates model with data from a provided map.
 func (s *Superhero) FromMap(data map[string]interface{}) {
 	s.ID = mapGet(data, []string{"id"}, 0).(int32)
 	s.AffiliationID = mapGet(data, []string{"affiliation_id"}, 0).(int32)
@@ -42,6 +45,7 @@ func (s *Superhero) FromMap(data map[string]interface{}) {
 	}
 }
 
+// Superpower is a model with custom hydration and extraction methods required to work with linkedin/goavro maps.
 type Superpower struct {
 	ID      int32
 	Name    string
@@ -50,6 +54,7 @@ type Superpower struct {
 	Passive bool
 }
 
+// ToMap extracts model data to a map required to perform encoding.
 func (s *Superpower) ToMap() map[string]interface{} {
 	return map[string]interface{}{
 		"id":      s.ID,
@@ -60,6 +65,7 @@ func (s *Superpower) ToMap() map[string]interface{} {
 	}
 }
 
+// FromMap hydrates model with data from a provided map.
 func (s *Superpower) FromMap(data map[string]interface{}) {
 	s.ID = mapGet(data, []string{"id"}, 0).(int32)
 	s.Name = mapGet(data, []string{"name"}, "").(string)
@@ -68,6 +74,7 @@ func (s *Superpower) FromMap(data map[string]interface{}) {
 	s.Passive = mapGet(data, []string{"passive"}, false).(bool)
 }
 
+// mapGet is a helper function allowing safe access of an undefined map that is a result of decoding by linkedin/goavro.
 func mapGet(m map[string]interface{}, path []string, empty interface{}) interface{} {
 	var temp = m
 	var v interface{}
